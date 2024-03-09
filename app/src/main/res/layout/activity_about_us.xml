@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/back14"
+    tools:context=".AboutUsActivity">
+
+    <TextView
+        android:id="@+id/textViewAboutUs"
+        android:layout_width="354dp"
+        android:layout_height="240dp"
+        android:padding="16dp"
+        android:text="欢迎使用我们的医疗检验报告识别和检测应用！我们是一支充满激情的团队，致力于为用户提供便捷、准确的医疗信息解决方案。
+
+我们的使命是利用先进的技术，帮助人们更轻松地管理自己的健康。通过我们的应用，您可以快速识别和了解医疗检验报告，获得专业的解释和建议，让您更加了解自己的身体状况。
+
+我们注重用户体验，不断优化我们的产品，确保您能够享受到最好的服务。同时，我们也积极倾听用户的反馈，不断改进和完善我们的应用，以满足您的需求。
+
+感谢您选择我们的应用，如果您有任何问题或建议，请随时联系我们。祝您健康愉快！
+联系我：2063496906@qq.com"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.234" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

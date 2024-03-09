@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.icu.text.SimpleDateFormat;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -29,6 +30,11 @@ import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -41,6 +47,7 @@ import okhttp3.Response;
 public class MainActivity extends AppCompatActivity {
     private ImageView imageView;
     private TextView textView;
+
 
     private String imageBase64;
     @Override
@@ -158,8 +165,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void fetchStoryWithOptions(String pic_ori) {
-        OkHttpClient client = new OkHttpClient();
-        String url = "http://192.168.1.24:8080/getResult"; // 请替换为实际的URL
+        OkHttpClient client = new OkHttpClient.Builder()
+                .connectTimeout(30, TimeUnit.SECONDS)  // 连接超时时间
+                .writeTimeout(30, TimeUnit.SECONDS)    // 写入超时时间
+                .readTimeout(30, TimeUnit.SECONDS)     // 读取超时时间
+                .build();
+
+        String url = "http://192.168.1.24:8081/getResult"; // 请替换为实际的URL
         // 确保使用正确的Content-Type
         RequestBody requestBody = new FormBody.Builder()
                 .add("pic_ori", imageBase64)
@@ -187,6 +199,14 @@ public class MainActivity extends AppCompatActivity {
                     try {
                         JSONObject jsonObject = new JSONObject(responseBody);
                         String result = jsonObject.getString("result");
+//                        String currentDate = getCurrentDateTime();
+//                        Report newReport = new Report(currentDate, response);
+//                        reportsList.add(newReport);
+//
+//                        // 如果你使用RecyclerView展示这些记录，记得更新Adapter
+//                        if (reportsAdapter != null) {
+//                            runOnUiThread(() -> reportsAdapter.notifyDataSetChanged());
+//                        }
                         runOnUiThread(() -> {
                             // todo
                             if (result.equals("")) {
@@ -199,6 +219,11 @@ public class MainActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 }
+            }
+            private String getCurrentDateTime() {
+                // 使用SimpleDateFormat获取当前日期和时间
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+                return sdf.format(new Date());
             }
         });
     }
